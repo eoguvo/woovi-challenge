@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { styled } from "styled-components";
 
-import { palette } from "@/lib/materialTheme";
+import { palette } from "@/lib/index.ts";
 
 export const OptionListLabel = styled(Typography)`
   background: #e5e5e5;

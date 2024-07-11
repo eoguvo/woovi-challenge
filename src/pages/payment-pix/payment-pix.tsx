@@ -1,23 +1,16 @@
-import { useEffect } from "react";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { IconCopy, pixQrCode } from "@/assets";
 import { formatNumber } from "@/utils";
-import usePaymentStore from "@/stores/paymentStore";
 
 import { QrCodeWrapper } from "./styles";
 import { PaymentDetails } from "@/components";
+import { PaymentItem } from "@/types/TypePayment";
+import { withSelectedItem } from "@/hoc";
 
-const Payment = function() {
-  const { selectedItem } = usePaymentStore();
+const Payment = function({ selectedItem }: { selectedItem: PaymentItem }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!selectedItem) {
-      navigate("/");
-    }
-  }, [selectedItem]);
 
   const amountToPay = formatNumber(selectedItem?.amount);
 
@@ -50,4 +43,4 @@ const Payment = function() {
   );
 };
 
-export default Payment;
+export default withSelectedItem(Payment);

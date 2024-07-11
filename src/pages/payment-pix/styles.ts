@@ -1,7 +1,7 @@
 import { QRCodeSVG } from "qrcode.react";
 import { styled } from "styled-components";
 
-import { palette } from "@/lib/materialTheme";
+import { palette } from "@/lib/index.ts";
 
 export const QrCodeWrapper = styled(QRCodeSVG)`
   width: 80vw;
