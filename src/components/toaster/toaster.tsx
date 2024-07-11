@@ -52,8 +52,6 @@ const Toaster = function() {
       sx={{
         width: "90vw",
         maxWidth: 500,
-        borderRadius: 10,
-        border: "1px solid #E5E5E5",
       }}
       TransitionComponent={Slide}
     >
