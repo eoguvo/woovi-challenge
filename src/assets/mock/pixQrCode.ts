@@ -1,0 +1,3 @@
+const pixQrCode = "00020101021226880014br.gov.bcb.pix2566qrcodes-pix.gerencianet.com.br/v2/0849218f535f4b09937d5b4585c8326f52040000530398654040.015802BR5909Admin Pix6009Sao Paulo6229052577532fc489a14bac9440e99f86304E6BB";
+
+export default pixQrCode;
