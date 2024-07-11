@@ -16,4 +16,13 @@ export default defineConfig({
   build: {
     target: "esnext",
   },
+  test: {
+    environment: "jsdom",
+    setupFiles: "./vitest.setup.ts",
+    coverage: {
+      reporter: ["text", "json", "html"],
+      exclude: ["src/vite-env.d.ts", "./vitest.setup.ts"],
+      all: true,
+    },
+  },
 });

@@ -1,5 +1,5 @@
 import { uuid } from "@/lib";
-import { PaymentData } from "@/types/TypePayment";
+import type { PaymentData } from "@/types/TypePayment";
 
 const total = 30500;
 

@@ -1,3 +1,4 @@
+import { AlertColor } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 export const palette = {
@@ -76,6 +77,33 @@ const theme = createTheme({
           backgroundColor: palette.secondary.main,
         },
       },
+    },
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+          width: "90vw",
+          maxWidth: 500,
+        },
+      },
+    },
+    MuiAlert: {
+      variants: [
+        {
+          props: { variant: "filled", severity: "success" },
+          style: {
+            backgroundColor: palette.primary.main,
+            color: palette.text.primary,
+          },
+        },
+        {
+          props: { variant: "filled", severity: "loading" as AlertColor },
+          style: {
+            backgroundColor: palette.secondary.main,
+            color: palette.primary.light,
+          },
+        },
+      ],
     },
   },
 });

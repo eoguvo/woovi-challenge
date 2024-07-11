@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import usePaymentStore from "@/stores/paymentStore";
+import { usePaymentStore } from "@/stores/index";
 
 const PaymentIdentifier = function() {
   const { selectedItem } = usePaymentStore();

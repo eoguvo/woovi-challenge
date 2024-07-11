@@ -1,14 +1,31 @@
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Stack, Typography } from "@mui/material";
 import { FieldValues, Form, FormProvider, FormSubmitHandler, useForm } from "react-hook-form";
 
+import { useToast } from "@/stores";
 import { formatNumber } from "@/utils";
 import { withSelectedItem } from "@/hoc";
 import { PaymentDetails } from "@/components";
 import { SelectInput, TextInput } from "@/lib";
-import { PaymentItem } from "@/types/TypePayment";
+import type { PaymentItem } from "@/types/TypePayment";
+
+import paymentCardSchema from "./payment-card.schema";
+
+const generateInstallmentsOptions = function(installments?: number, amount?: number) {
+  const length = installments ? installments - 1 : 1;
+  const offset = 2;
+  return Array.from({ length }, function(_, index) {
+    const value = String(index + offset);
+    return {
+      value,
+      label: `${value}x de ${formatNumber(amount)}`,
+    };
+  });
+};
 
 type FormData = {
-  name: string;
+  fullname: string;
   document: string;
   card_number: string;
   card_expiration: string;
@@ -17,15 +34,25 @@ type FormData = {
 };
 
 const Card = function({ selectedItem }: { selectedItem: PaymentItem }) {
-  const methods = useForm<FormData>();
-  const installmentCount = selectedItem?.installments || 1;
-  const installmentsOptions = Array.from({ length: installmentCount- 1 }, (_, i) => {
-    return { value: String(i + 2), label: `${i + 2}x de ${formatNumber(selectedItem?.amount)}` };
+  const navigate = useNavigate();
+  const { openToast } = useToast();
+  const methods = useForm<FormData>({
+    resolver: yupResolver(paymentCardSchema),
+    mode: "onChange",
   });
 
+  const installmentsOptions = generateInstallmentsOptions(selectedItem?.installments, selectedItem?.amount);
+
   const onSubmit = methods.handleSubmit(async function(data: FormData) {
-    console.log(data);
+    console.log("Received:", data),
+    openToast({ message: "Processando pagamento...", type: "loading", time: 1500 });
+    setTimeout(() => {
+      openToast({ message: "Pago!", type: "success", time: 1000 });
+      navigate("/");
+    }, 1500);
   }) as unknown as FormSubmitHandler<FieldValues>;
+
+  methods.watch("fullname");
 
   return (
     <FormProvider {...methods}>
@@ -35,7 +62,7 @@ const Card = function({ selectedItem }: { selectedItem: PaymentItem }) {
         </Typography>
         <Stack spacing="21px !important" mt="28px !important" width="90vw" maxWidth={500}>
           <Stack spacing="28px !important" width="100%">
-            <TextInput name="name" label="Nome completo" placeholder="Nome completo" />
+            <TextInput name="fullname" label="Nome completo" placeholder="Nome completo" />
             <TextInput name="document" label="CPF" placeholder="CPF" mask="999.999.999-99" />
             <TextInput name="card_number" label="Número do cartão" placeholder="Número do cartão" mask="9999-9999-9999-9999" />
             <Stack direction="row" spacing="22px !important">
@@ -48,7 +75,7 @@ const Card = function({ selectedItem }: { selectedItem: PaymentItem }) {
               label="Parcelas"
             />
           </Stack>
-          <Button variant="contained">
+          <Button variant="contained" type="submit">
             Pagar
           </Button>
         </Stack>

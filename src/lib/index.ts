@@ -7,3 +7,6 @@ export { default as TextInput } from "./react-hook-form/TextInput";
 
 // uuid
 export { default as uuid } from "./uuid/uuid";
+
+// yup
+export { default as yup } from "./yup/yup";

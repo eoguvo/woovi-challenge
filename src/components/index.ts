@@ -7,3 +7,4 @@ export { default as PaymentTimeline } from "./paymentTimeline/paymentTimeline";
 export { default as PaymentDeadline } from "./paymentDeadline/paymentDeadline";
 export { default as PaymentSummary } from "./paymentSummary/paymentSummary";
 export { default as PaymentIdentifier } from "./paymentIdentifier/paymentIdentifier";
+export { default as Toaster } from "./toaster/toaster";

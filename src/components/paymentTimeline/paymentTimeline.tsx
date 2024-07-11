@@ -1,10 +1,11 @@
-import { Stack, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { Stack, Typography } from "@mui/material";
 
 import { IconCheck } from "@/assets";
 import { formatNumber } from "@/utils";
-import { PaymentItem } from "@/types/TypePayment";
-import usePaymentStore from "@/stores/paymentStore";
+import { usePaymentStore } from "@/stores";
+
+import type { PaymentItem } from "@/types/TypePayment";
 
 import { TimelineItemCheck, TimelineItemWrapper } from "./styles";
 

@@ -1,29 +1,37 @@
-import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Button, Typography } from "@mui/material";
 
-import { IconCopy, pixQrCode } from "@/assets";
+import { useToast } from "@/stores";
 import { formatNumber } from "@/utils";
+import { withSelectedItem } from "@/hoc";
+import { PaymentDetails } from "@/components";
+import { IconCopy, pixQrCode } from "@/assets";
+
+import type { PaymentItem } from "@/types/TypePayment";
 
 import { QrCodeWrapper } from "./styles";
-import { PaymentDetails } from "@/components";
-import { PaymentItem } from "@/types/TypePayment";
-import { withSelectedItem } from "@/hoc";
 
 const Payment = function({ selectedItem }: { selectedItem: PaymentItem }) {
   const navigate = useNavigate();
+  const { openToast } = useToast();
 
   const amountToPay = formatNumber(selectedItem?.amount);
+  const hasInstallments = Boolean(selectedItem?.hasInstallments);
 
-  const title = (selectedItem?.hasInstallments) ? (
+  const title = (hasInstallments) ? (
     `João, pague a entrada de ${amountToPay} pelo Pix`
   ) : (
     `João, pague agora o total de ${amountToPay} pelo Pix`
   );
 
   const handleCopyToClipboard = async function() {
+    openToast({ message: "Processando pagamento", type: "loading", time: 1000 });
     await navigator.clipboard.writeText(pixQrCode);
     setTimeout(function() {
-      const to = selectedItem?.hasInstallments ? "/payment-card" : "/";
+      const message = hasInstallments ? "Entrada paga" : "Pagamento realizado";
+      const to = hasInstallments ? "/payment-card" : "/";
+
+      openToast({ message, type: "success", time: 1000 });
       navigate(to);
     }, 1000);
   };

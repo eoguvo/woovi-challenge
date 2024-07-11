@@ -1,8 +1,9 @@
-import { ComponentType, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ComponentType, useEffect } from "react";
 
-import usePaymentStore from "@/stores/paymentStore";
-import { PaymentItem } from "@/types/TypePayment";
+import { usePaymentStore } from "@/stores";
+
+import type { PaymentItem } from "@/types/TypePayment";
 
 type InjectedProps = {
   selectedItem: PaymentItem;

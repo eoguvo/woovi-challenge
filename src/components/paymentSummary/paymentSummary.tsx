@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 
 import { IconChevron } from "@/assets";
 import { formatNumber } from "@/utils";
-import usePaymentStore from "@/stores/paymentStore";
+import { usePaymentStore } from "@/stores/index";
 
 const PaymentSummary = function() {
   const { selectedItem } = usePaymentStore();

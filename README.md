@@ -30,6 +30,6 @@ Challenge made by Woovi to junior roles.
 - [X] Create the payment method page
 - [X] Create the payment pix page
 - [X] Create the payment card page
-- [ ] Validate form with Yup
-- [ ] Create some toasts and modals
-- [ ] Create the payment success page
+- [X] Validate form with Yup
+- [X] Create some toasts
+- [ ] Tests

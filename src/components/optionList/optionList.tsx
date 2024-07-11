@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { Stack, Typography } from "@mui/material";
 
 import type { PaymentData } from "@/types/TypePayment";
 
 import { formatNumber } from "@/utils";
-
 import { Flag } from "@/components/index.ts";
 import { IconCheck } from "@/assets/index.ts";
-import usePaymentStore from "@/stores/paymentStore";
+import { usePaymentStore } from "@/stores/index";
 
 import {
   OptionListItem,
@@ -33,19 +31,11 @@ const getFlagData = function(item: PaymentData) {
 type OptionListProps = {
   label?: string;
   items?: PaymentData[];
+  onSelect?: (item: PaymentData) => void;
 };
 
-const OptionList = function({ label = "OptionList", items = [] }: OptionListProps) {
-  const { selectedItem, handleSelection } = usePaymentStore();
-
-  const navigate = useNavigate();
-
-  const handleSelectItem = function(item: PaymentData) {
-    handleSelection(item);
-    setTimeout(() => {
-      navigate("/payment-pix");
-    }, 1000);
-  };
+const OptionList = function({ label = "OptionList", items = [], onSelect }: OptionListProps) {
+  const { selectedItem } = usePaymentStore();
   return (
     <OptionListWrapper>
       <OptionListLabel>{label}</OptionListLabel>
@@ -53,7 +43,7 @@ const OptionList = function({ label = "OptionList", items = [] }: OptionListProp
         const flag = getFlagData(item);
         const isSelected = selectedItem?.id === item.id;
         const onClick = function() {
-          handleSelectItem(item);
+          onSelect?.(item);
         };
         return (
           <OptionListItem key={item.id} onClick={onClick} role="button" tabIndex={0} data-selected={String(isSelected)}>

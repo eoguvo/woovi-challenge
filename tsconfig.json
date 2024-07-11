@@ -22,8 +22,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": true
   },
-  "include": [ "src" ],
-  "typeRoots": ["src/vite-env.d.ts" ],
+  "include": [ "src", "vitest.setup.ts" ],
+  "typeRoots": ["src/vite-env.d.ts", "src/lib"],
   "types": [
     "vite-plugin-pwa/client",
     "src/vite-env.d.ts"
